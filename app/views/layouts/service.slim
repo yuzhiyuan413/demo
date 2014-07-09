@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title Demo
+    =render 'layouts/assets'
+  body[data-val='service']
+    /导航
+    =render 'layouts/header'
+    
+    /正文
+    div.container-fluid
+      div.row
+        div.col-xs-4.col-md-3.col-lg-2
+          /菜单
+          div.list-group
+            a.list-group-item[href='#']  
+              i.glyphicon.glyphicon-th-list
+              span< 我的服务 
+            a.list-group-item[href='#'] 
+              i.glyphicon.glyphicon-user
+              span< 购买服务
+            a.list-group-item[href='#'] 
+              i.glyphicon.glyphicon-time
+              span< 消费历史
+  
+        div.col-xs-8.col-md-9.col-lg-10
+          = yield
+    /底部
+    =render 'layouts/footer'
+    
+

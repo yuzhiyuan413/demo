@@ -1,0 +1,61 @@
+ol.breadcrumb
+  li: a[href="/"] 首页
+  li: a[href="/mem"] 个人信息
+  li.active 我的消息
+
+table.table
+  thead
+    tr
+      th #
+      th 消息类型
+      th 消息内容 
+      th 发送时间
+      th 删除
+    tbody
+      -10.times
+        tr
+          td 1 
+          td 系统提示 
+          td 你获得了10个金币 
+          td 2014-7-7 10:15:32
+          td
+            a[href='#']: i.glyphicon.glyphicon-trash
+ul.pagination
+  li: a[href="#"] &laquo; 
+  -10.times do |i|
+    li: a[href="#"]= i  
+  li: a[href="#"] &raquo;
+
+form#inform[method='put' action='/msg/save']
+  div.row
+    div.col-md-3
+      div.input-group
+        div.input-group-btn
+          button.btn.btn-default.dropdown-toggle[type="button" data-toggle="dropdown"]
+            span 消息类型 
+            span.caret 
+          ul.dropdown-menu[role="menu"]
+            li: a[href="#"] 提示
+            li: a[href="#"] 通知
+            li: a[href="#"] 错误
+            li: a[href="#"] 警告
+        input.form-control[type="text" name='typ']
+    div.col-md-7
+      div.input-group
+        span.input-group-addon 消息内容 
+        input.form-control[type="text" name='con']
+    div.col-md-2 
+      button#sub-btn.btn.btn-primary[type="submit"  data-loading-text="提交中..." ] 添  加
+
+javascript:
+  $(function(){ 
+    $('#inform').ajaxForm({ 
+      beforeSerialize: function(){$('#sub-btn').button('loading');},
+      success:function(){
+        $('#sub-btn').button('reset')
+      }
+    });
+  })
+
+ 
+     

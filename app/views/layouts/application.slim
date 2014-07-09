@@ -1,0 +1,20 @@
+doctype html
+html
+head
+  title Demo
+  =render 'layouts/assets'
+body
+  /导航
+  =render 'layouts/header'
+  
+  /正文
+  div.container-fluid
+    div.row
+      div.col-xs-4.col-md-3.col-lg-2
+        =render 'layouts/mem_bar'
+      div.col-xs-8.col-md-9.col-lg-10
+        = yield :con
+  /底部
+  =render 'layouts/footer'
+  
+

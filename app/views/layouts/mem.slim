@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    title Demo
+    =render 'layouts/assets'
+  body[data-val='mem']
+    /导航
+    =render 'layouts/header'
+    
+    /正文
+    div.container-fluid
+      div.row
+        div.col-xs-4.col-md-3.col-lg-2 
+          /菜单
+          div.list-group
+            a.list-group-item[href='#']  
+              i.glyphicon.glyphicon-cog
+              span< 个人设置 
+            a.list-group-item[href='#'] 
+              i.glyphicon.glyphicon-user
+              span< 修改头像
+            a.list-group-item[href='/mem/msg'] 
+              i.glyphicon.glyphicon-comment
+              span< 我的消息
+              span.badge 14
+            a.list-group-item[href='#'] 
+              i.glyphicon.glyphicon-heart-empty
+              span< 我的好友
+            a.list-group-item[href='#'] 
+              i.glyphicon.glyphicon-credit-card
+              span< 我的财产 
+  
+        div.col-xs-8.col-md-9.col-lg-10
+          = yield
+    /底部
+    =render 'layouts/footer'
+    
+
