@@ -11,22 +11,18 @@ table.table
       th 消息内容 
       th 发送时间
       th 删除
-    tbody
-      -10.times
-        tr
-          td 1 
-          td 系统提示 
-          td 你获得了10个金币 
-          td 2014-7-7 10:15:32
-          td
-            a[href='#']: i.glyphicon.glyphicon-trash
-ul.pagination
-  li: a[href="#"] &laquo; 
-  -10.times do |i|
-    li: a[href="#"]= i  
-  li: a[href="#"] &raquo;
-
-form#inform[method='put' action='/msg/save']
+    tbody#datalist
+    script#template[type="text/html"] 
+      tr
+        td @{id} 
+        td @{typ} 
+        td @{con}  
+        td @{created_at} 
+        td
+          a[href="#" data-id="@{id}"]: i.glyphicon.glyphicon-trash
+   
+div#pagenation
+=form_for(MMsg.new,url: msg_create_path) do |msg| 
   div.row
     div.col-md-3
       div.input-group
@@ -39,23 +35,37 @@ form#inform[method='put' action='/msg/save']
             li: a[href="#"] 通知
             li: a[href="#"] 错误
             li: a[href="#"] 警告
-        input.form-control[type="text" name='typ']
+        =msg.text_field :typ,{class:'form-control'}
     div.col-md-7
       div.input-group
         span.input-group-addon 消息内容 
-        input.form-control[type="text" name='con']
+        =msg.text_field :con,{class:'form-control'} 
     div.col-md-2 
       button#sub-btn.btn.btn-primary[type="submit"  data-loading-text="提交中..." ] 添  加
+    input#msgcount[type='hidden' value='#{MMsg.count}']
+coffee:
+  $(()-> 
+    get_data(1)
 
-javascript:
-  $(function(){ 
-    $('#inform').ajaxForm({ 
-      beforeSerialize: function(){$('#sub-btn').button('loading');},
-      success:function(){
-        $('#sub-btn').button('reset')
-      }
-    });
-  })
+    $('#pagenation').pagination(parseInt($('#msgcount').val()),
+      items_per_page : 10
+      current_page :0
+      callback : (page) -> get_data(page+1)
+    ) 
 
- 
-     
+    $('.dropdown-menu li').click(() ->
+      $(this).closest('.input-group').find('.text_field').val($(this).text())
+    )
+  )
+
+  $('#new_m_msg').ajaxForm( 
+    beforeSerialize: () -> $('#sub-btn').button('loading')
+    success: (data) ->
+      $.site.my_template_append([data.item],$('#template'),$('#datalist')) if data.valid
+      $('#sub-btn').button('reset') 
+  )
+
+  get_data = (page) ->  
+    $.post('/msg/list',{page : page},(data)->
+      $.site.my_template(data,$('#template'),$('#datalist'))
+    )

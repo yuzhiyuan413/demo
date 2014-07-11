@@ -2,7 +2,8 @@ Demo::Application.routes.draw do
   get "/mem" => 'mem#home'
   get "/mem/msg"
   get "/service" => 'service#home'
-  post "/msg/save"
+  post "/msg/create"
+  post "/msg/list"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
