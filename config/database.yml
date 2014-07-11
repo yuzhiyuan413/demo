@@ -8,7 +8,7 @@ development:
   database: demodb
   server: localhost
   username: root
-  password: "123123"
+  password: "1234"
   pool: 5
   timeout: 5000
   encoding: utf8
@@ -21,7 +21,7 @@ test:
   database: demodb
   server: localhost
   username: root
-  password: "123123"
+  password: "1234"
   pool: 5
   timeout: 5000
   encoding: utf8
@@ -31,7 +31,7 @@ production:
   database: demodb
   server: localhost
   username: root
-  password: "123123"
+  password: "1234"
   pool: 5
   timeout: 5000
   encoding: utf8
